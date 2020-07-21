@@ -16,7 +16,9 @@ class Calculadora{
         swal({
             icon: "success",
             title: `Resultados`,
-            text: `🟡 Monedas necesarias: ${totalMonedas} 
+            text: `Para pasar de fuerza ${NIVEL_BRAWLER} a fuerza ${NIVEL_DESEADO}, tu brawler necesita:
+
+                   🟡 Monedas necesarias: ${totalMonedas} 
                    🟣 Puntos necesarios: ${totalPuntos}`,
                                
         })

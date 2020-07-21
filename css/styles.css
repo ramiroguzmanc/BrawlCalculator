@@ -79,3 +79,13 @@ button:hover{
     margin-bottom: 28px;
     color: black;
   }
+
+  .swal-text {
+  background-color: #FEFAE3;
+  padding: 17px;
+  border: 1px solid #F0E1A1;
+  display: block;
+  margin: 22px;
+  text-align: center;
+  color: #61534e;
+}
