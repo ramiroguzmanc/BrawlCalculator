@@ -1,49 +1,55 @@
-const MONEDAS = [0, 0, 20, 35, 75, 140, 290, 480, 800, 1250, 0];
-const PUNTOS_DE_FUERZA = [0, 0, 20, 30, 50, 80, 130, 210, 340, 550, 0];
+const LEVEL_COST = [
+                    {Level: 1, Coins: 0, Power_points: 0},         
+                    {Level: 2, Coins: 20, Power_points: 20},          
+                    {Level: 3, Coins: 35, Power_points: 30},         
+                    {Level: 4, Coins: 75, Power_points: 50},         
+                    {Level: 5, Coins: 140, Power_points: 80},
+                    {Level: 6, Coins: 290, Power_points: 130},
+                    {Level: 7, Coins: 480, Power_points: 210},
+                    {Level: 8, Coins: 800, Power_points: 340},
+                    {Level: 9, Coins: 1250, Power_points: 550},
+                    {Level: 10, Coins: 0, Power_points: 0}
+                  ];         
 
-class Calculadora {
+class Calculator {
   constructor() {
     
-    const NIVEL_BRAWLER = parseInt(document.getElementById("Level").value);
-    const NIVEL_DESEADO = parseInt(document.getElementById("Desired").value);
+    const BRAWLER_LEVEL = parseInt(document.getElementById("Level").value);
+    const DESIRED_LEVEL = parseInt(document.getElementById("Desired").value);
 
-    if (NIVEL_DESEADO <= NIVEL_BRAWLER) {
-        this.imprimirError()
+    if (DESIRED_LEVEL <= BRAWLER_LEVEL) {
+        this.printError()
     } else {
-      let totalMonedas = this.calcularMonedas(NIVEL_BRAWLER, NIVEL_DESEADO);
-      let totalPuntos = this.calcularPuntos(NIVEL_BRAWLER, NIVEL_DESEADO);
 
-      console.log(`Monedas necesarias: ${totalMonedas}`);
-      console.log(`Puntos necesarios: ${totalPuntos}`);
+       let totalCost = this.calculateCost(BRAWLER_LEVEL, DESIRED_LEVEL)
 
-      this.imprimirResultado(totalMonedas, totalPuntos, NIVEL_BRAWLER, NIVEL_DESEADO);
+       this.imprimirResultado(totalCost, BRAWLER_LEVEL, DESIRED_LEVEL);
     }
   }
 
-  calcularMonedas(NIVEL_BRAWLER, NIVEL_DESEADO) {
-    return MONEDAS
-      .slice(NIVEL_BRAWLER + 1, NIVEL_DESEADO + 1) // Se suma 1 en cada uno porque sino se incluye el costo del nivel actual y no se toma el último
-      .reduce((acum, vlrev) => acum + vlrev);
+  calculateCost(BRAWLER_LEVEL, DESIRED_LEVEL) {
+    let total_coins =  LEVEL_COST
+                                 .slice(BRAWLER_LEVEL, DESIRED_LEVEL)    
+                                 .reduce((acum, valev) => acum + valev.Coins, 0)
+    let total_pp =  LEVEL_COST
+                                 .slice(BRAWLER_LEVEL, DESIRED_LEVEL)    
+                                 .reduce((acum, valev) => acum + valev.Power_points, 0)
+  
+    return {total_coins, total_pp}                                 
   }
 
-  calcularPuntos(NIVEL_BRAWLER, NIVEL_DESEADO) {
-    return PUNTOS_DE_FUERZA
-                           .slice(NIVEL_BRAWLER + 1, NIVEL_DESEADO + 1) // Se suma 1 en cada uno porque sino se incluye el costo del nivel actual y no se toma el último
-                           .reduce((acum, vlrev) => acum + vlrev);
-  }
-
-  imprimirResultado(totalMonedas, totalPuntos, NIVEL_BRAWLER, NIVEL_DESEADO) {
+  imprimirResultado(totalCost, BRAWLER_LEVEL, DESIRED_LEVEL) {
     swal({
       icon: "success",
       title: `Resultados`,
-      text: `Para pasar de fuerza ${NIVEL_BRAWLER} a fuerza ${NIVEL_DESEADO}, tu brawler necesita:
+      text: `Para pasar de fuerza ${BRAWLER_LEVEL} a fuerza ${DESIRED_LEVEL}, tu brawler necesita:
 
-                   🟡 Monedas necesarias: ${totalMonedas} 
-                   🟣 Puntos necesarios: ${totalPuntos}`,
+                   🟡 Monedas necesarias: ${totalCost.total_coins} 
+                   🟣 Puntos necesarios: ${totalCost.total_pp}`,
     });
   }
 
-  imprimirError(){
+  printError(){
     swal({
         icon: 'error',
         title: 'Oops...',
@@ -53,6 +59,6 @@ class Calculadora {
 
 }
 
-function calcular() {
-  window.calculadora = new Calculadora();
+function calculate() {
+  window.calculator = new Calculator();
 }
