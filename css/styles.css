@@ -5,9 +5,9 @@ body {
   grid-template: repeat(4, 150px) / repeat(7, 1fr);
   grid-template-areas:
     "header header header header header header header"
-    ". . content content content . ."
-    ". . content content content . ."
-    ". . content content content . .";
+    ". content content content content content ."
+    ". content content content content content ."
+    ". content content content content content .";
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: url("../images/fondo.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -21,6 +21,7 @@ header {
   grid-area: header;
   display: flex;
   justify-content: center;
+  align-items: center;
   color: white;
   font-family: "Permanent Marker", cursive;
 }
@@ -91,4 +92,16 @@ button:hover {
   margin: 22px;
   text-align: center;
   color: #61534e;
+}
+
+@media only screen and (max-width: 643px) {
+  header {
+    padding: 0 10%;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  header img {
+    display: none;
+  }
 }
